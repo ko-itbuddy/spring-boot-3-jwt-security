@@ -1,6 +1,6 @@
 package org.itbuddy.security.common.security.auditing;
 
-import org.itbuddy.security.common.security.repository.entity.User;
+import org.itbuddy.security.common.security.repository.entity.UserEntity;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +22,7 @@ public class UserPrincipalAuditAware implements AuditorAware<Integer> {
             return Optional.empty();
         }
 
-        User userPrincipal = (User) authentication.getPrincipal();
+        UserEntity userPrincipal = (UserEntity) authentication.getPrincipal();
         return Optional.ofNullable(userPrincipal.getId());
     }
 }

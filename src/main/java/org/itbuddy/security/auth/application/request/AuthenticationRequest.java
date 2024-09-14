@@ -1,4 +1,4 @@
-package org.itbuddy.security.auth.application;
+package org.itbuddy.security.auth.application.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

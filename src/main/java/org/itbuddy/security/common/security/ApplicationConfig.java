@@ -1,7 +1,7 @@
 package org.itbuddy.security.common.security;
 
 import org.itbuddy.security.common.security.auditing.UserPrincipalAuditAware;
-import org.itbuddy.security.common.security.repository.jpa.UserRepository;
+import org.itbuddy.security.common.security.repository.jpa.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-  private final UserRepository repository;
+  private final UserJpaRepository repository;
 
   @Bean
   public UserDetailsService userDetailsService() {

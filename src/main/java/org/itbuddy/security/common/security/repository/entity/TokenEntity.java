@@ -20,7 +20,7 @@ import org.itbuddy.security.common.security.domain.TokenType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Token {
+public class TokenEntity {
 
   @Id
   @GeneratedValue
@@ -38,5 +38,5 @@ public class Token {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  public User user;
+  public UserEntity user;
 }
