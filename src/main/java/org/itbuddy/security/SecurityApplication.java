@@ -1,7 +1,7 @@
 package org.itbuddy.security;
 
 import org.itbuddy.security.auth.application.AuthenticationService;
-import org.itbuddy.security.auth.application.RegisterRequest;
+import org.itbuddy.security.auth.application.request.RegisterRequest;
 import org.itbuddy.security.common.security.domain.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +29,7 @@ public class SecurityApplication {
 					.password("password")
 					.role(Role.ADMIN)
 					.build();
-			System.out.println("Admin token: " + service.register(admin).getAccessToken());
+			System.out.println("Admin token: " + service.register(admin).accessToken());
 
 			var manager = RegisterRequest.builder()
 					.firstname("Admin")
@@ -38,7 +38,7 @@ public class SecurityApplication {
 					.password("password")
 					.role(Role.MANAGER)
 					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());
+			System.out.println("Manager token: " + service.register(manager).accessToken());
 
 		};
 	}
