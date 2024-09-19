@@ -3,7 +3,7 @@ package org.itbuddy.security.book.ui;
 import lombok.RequiredArgsConstructor;
 import org.itbuddy.security.book.application.BookRequest;
 import org.itbuddy.security.book.application.BookService;
-import org.itbuddy.security.book.repository.Book;
+import org.itbuddy.security.book.repository.entity.BookEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> findAllBooks() {
+    public ResponseEntity<List<BookEntity>> findAllBooks() {
         return ResponseEntity.ok(service.findAll());
     }
 }

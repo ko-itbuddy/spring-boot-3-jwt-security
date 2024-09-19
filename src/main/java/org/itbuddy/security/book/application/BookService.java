@@ -1,8 +1,9 @@
 package org.itbuddy.security.book.application;
 
 import lombok.RequiredArgsConstructor;
-import org.itbuddy.security.book.repository.Book;
-import org.itbuddy.security.book.repository.BookRepository;
+import org.itbuddy.security.book.mapper.BookEntityMapper;
+import org.itbuddy.security.book.repository.entity.BookEntity;
+import org.itbuddy.security.book.repository.jpa.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,11 @@ public class BookService {
     private final BookRepository repository;
 
     public void save(BookRequest request) {
-        var book = Book.builder()
-                       .id(request.getId())
-                       .author(request.getAuthor())
-                       .isbn(request.getIsbn())
-                       .build();
+        final BookEntity book = BookEntityMapper.toBookEntity(request);
         repository.save(book);
     }
 
-    public List<Book> findAll() {
+    public List<BookEntity> findAll() {
         return repository.findAll();
     }
 }
