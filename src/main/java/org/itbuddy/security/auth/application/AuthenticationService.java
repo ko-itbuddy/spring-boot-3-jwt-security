@@ -87,9 +87,9 @@ public class AuthenticationService {
     }
 
     final String refreshToken = authHeader.substring(7);
-    final String userEmail = jwtService.extractUsername(refreshToken);
+    final String userEmail = jwtService.extractUsernameByJwt(refreshToken);
     if (userEmail != null) {
-      UserEntity user = this.userRepository.findByEmail(userEmail)
+      final UserEntity user = this.userRepository.findByEmail(userEmail)
                                            .orElseThrow();
       if (jwtService.isTokenValid(refreshToken, user)) {
         String accessToken = jwtService.generateToken(user);

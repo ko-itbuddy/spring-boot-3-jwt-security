@@ -17,7 +17,7 @@ public class UserService {
     private final UserJpaRepository repository;
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
-        var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        final UserEntity user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         // check if the current password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {

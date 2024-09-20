@@ -1,5 +1,6 @@
 package org.itbuddy.security.common.security.application;
 
+import org.itbuddy.security.common.security.repository.entity.TokenEntity;
 import org.itbuddy.security.common.security.repository.jpa.TokenJpaRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,8 +28,8 @@ public class LogoutService implements LogoutHandler {
       return;
     }
     jwt = authHeader.substring(7);
-    var storedToken = tokenJpaRepository.findByToken(jwt)
-                                        .orElse(null);
+    final TokenEntity storedToken = tokenJpaRepository.findByToken(jwt)
+                                                .orElse(null);
     if (storedToken != null) {
       storedToken.setExpired(true);
       storedToken.setRevoked(true);

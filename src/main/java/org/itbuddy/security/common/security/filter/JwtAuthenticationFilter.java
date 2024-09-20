@@ -1,6 +1,7 @@
 package org.itbuddy.security.common.security.filter;
 
 import org.itbuddy.security.common.security.application.JwtService;
+import org.itbuddy.security.common.security.domain.AuthHeader;
 import org.itbuddy.security.common.security.repository.jpa.TokenJpaRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,18 +38,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-    final String authHeader = request.getHeader("Authorization");
-    final String jwt;
-    final String userEmail;
-    if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+
+    AuthHeader authHeader = new AuthHeader(request.getHeader("Authorization"));
+    if (!authHeader.isValidate()) {
       filterChain.doFilter(request, response);
       return;
     }
-    jwt = authHeader.substring(7);
-    userEmail = jwtService.extractUsername(jwt);
+
+    final String jwt = authHeader.getJwtToken();
+    final String userEmail = jwtService.extractUsernameByJwt(jwt);
+
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      var isTokenValid = tokenJpaRepository.findByToken(jwt)
+      boolean isTokenValid = tokenJpaRepository.findByToken(jwt)
                                            .map(t -> !t.isExpired() && !t.isRevoked())
                                            .orElse(false);
       if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
